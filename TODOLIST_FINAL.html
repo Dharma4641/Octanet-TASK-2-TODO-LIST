@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <style>
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-image:url("https://th.bing.com/th/id/OIP.D3-_I8NjycEcDLCgXek15wHaE8?w=219&h=180&c=7&r=0&o=5&dpr=1.5&pid=1.7");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+} 
+
+h1 {
+    text-align: center;
+    color:aqua;
+    font-size: 50px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+.priority {
+    font-weight: bold;
+    font-size: 30px;
+    color:aqua;
+
+}
+
+.date {
+    color:rgb(239, 66, 53);
+    font-weight: bold;
+    font-size: 30px;
+}
+.task{
+    color:rgb(251, 243, 7);
+    font-weight: bold;
+    font-size:50px;
+}
+
+.delete{
+    color: rgb(17, 205, 120);
+}
+span + span {
+margin-left: 20px;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input id="taskInput" type="text" placeholder="Add task...">
+    <button id="addButton">Add</button>
+    <ul id="taskList"></ul>
+
+
+
+ <script>
+
+const taskInput = document.getElementById('taskInput');
+const addButton = document.getElementById('addButton');
+const taskList = document.getElementById('taskList');
+
+
+addButton.addEventListener('click', addTask);
+
+
+function addTask() {
+    const taskText = taskInput.value;
+    if (taskText === '') {
+        alert('Please enter a task!');
+        return;
+    }
+    const task = document.createElement('li');
+    const priority = document.createElement('span');
+    const taskTextSpan = document.createElement('span');
+    taskTextSpan.className='task';
+    taskTextSpan.textContent = taskText;
+    task.appendChild(taskTextSpan);
+    
+    priority.className = 'priority';
+    priority.textContent = 'Priority: ';
+    const priorityInput = document.createElement('input');
+    priorityInput.type = 'number';
+    priorityInput.min = 1;
+    priorityInput.max = 15;
+    priority.appendChild(priorityInput);
+    task.appendChild(priority);
+
+    const date = document.createElement('span');
+    date.className = 'date';
+    date.textContent = 'Date: ';
+    const dateInput = document.createElement('input');
+    dateInput.type = 'date';
+    date.appendChild(dateInput);
+    task.appendChild(date);
+
+
+    const deleteButton = document.createElement('button');
+    deleteButton.className='delete';
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click', deleteTask);
+    task.appendChild(deleteButton);
+
+    taskList.appendChild(task);
+    taskInput.value = '';
+}
+
+
+function deleteTask(event) {
+    const task = event.target.parentElement;
+    taskList.removeChild(task);
+}
+
+</script>
+
+</body>
+</html>
